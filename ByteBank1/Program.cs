@@ -10,6 +10,11 @@ public class Program
         Console.WriteLine("0 - Para sair do programa");
         Console.Write("Digite a opção desejada: ");
     }
+
+    static void CreateUser()
+    {
+        
+    }
     public static void Main(string[] args)
     {
         Console.WriteLine("Antes de começar a usar, vamos configurar alguns valores: ");
