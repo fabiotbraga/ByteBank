@@ -1,4 +1,6 @@
-﻿namespace ByteBank1;
+﻿using ByteBank1.Entities;
+
+namespace ByteBank1;
 
 public class Program
 {
@@ -13,6 +15,7 @@ public class Program
     static void Login(List<string> cpfs, List<string> senhas)
     {
         Console.Clear();
+        
         Console.WriteLine("Digite o seu cpf:");
         string cpfLogin = Console.ReadLine();
         int cpfFind = cpfs.FindIndex(cpf => cpf == cpfLogin);
@@ -35,31 +38,49 @@ public class Program
         Console.WriteLine("Por favor, digite a operação que deseja realizar:");
         Console.WriteLine("1 - Saque");
         Console.WriteLine("2 - Depósito");
-        Console.WriteLine("3 - Tranferência");
+        Console.WriteLine("3 - Ver conta");
         Console.WriteLine("0 - Para sair do programa");
     }
     
-    static void CreateUser(List<string> cpfs, List<string> titulares, List<string> senhas , List<double> saldos)
+    static void CreateUser(List<User> contas)
     {
         
         Console.Clear();
         
-        Console.Write("Digite o cpf: ");
-        cpfs.Add(Console.ReadLine());
         Console.Write("Digite seu nome: ");
-        titulares.Add(Console.ReadLine());
+        User user = new User();
+        user.Nome = Console.ReadLine();
+        Console.Write("Digite o cpf: ");
+        user.Cpf = Console.ReadLine();
         Console.Write("Digite a senha: ");
-        senhas.Add(Console.ReadLine());
-        saldos.Add(0);
+        user.Senha = Console.ReadLine();
+        
+        contas.Add(user);
+    }
+    
+    static void ApresentaConta( int index, List<User> contas) {
+        Console.WriteLine($"CPF = {contas[index].Cpf} | Titular = {contas[index].Nome} | Saldo = R${contas[index].Saldo:F2}");
+    }
+    static void ApresentarUsuario(List<User> contas) {
+        
+        Console.Clear();
+        
+        Console.Write("Digite o cpf: ");
+        string cpfParaApresentar = Console.ReadLine();
+        int indexParaApresentar = contas.FindIndex(cpf => cpf == contas.Find( a => a.Cpf == cpfParaApresentar ));
+
+        if (indexParaApresentar == -1) {
+            Console.WriteLine("Não foi possível apresentar esta Conta");
+            Console.WriteLine("MOTIVO: Conta não encontrada.");
+        }
+
+        ApresentaConta(indexParaApresentar, contas);
     }
 
     public static void Main(string[] args)
     {
         int optionInit;
-        List<string> cpfs = new List<string>();
-        List<string> titulares = new List<string>();
-        List<string> senhas = new List<string>();
-        List<double> saldos = new List<double>();
+        List<User> contas = new List<User>(); 
         do
         {
            Init(); 
@@ -69,11 +90,14 @@ public class Program
                    Console.WriteLine("Estou encerrando o programa...");
                    break;
                case 1:
-                   Login(titulares, senhas);
+                   //Login(titulares, senhas);
                    break;
                case 2:
-                   CreateUser(cpfs, titulares, senhas, saldos);
+                   CreateUser(contas);
                    //Operations();
+                   break;
+               case 3:
+                   ApresentarUsuario(contas);
                    break;
            }
    
