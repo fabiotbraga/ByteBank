@@ -10,14 +10,56 @@ public class Program
         Console.WriteLine("0 - Para sair do programa");  
     }
 
-    static void CreateUser(List<string> titular, List<string> cpf, List<decimal> saldo)
+    static void Login(List<string> cpfs, List<string> senhas)
     {
-        throw new NotImplementedException();
+        Console.Clear();
+        Console.WriteLine("Digite o seu cpf:");
+        string cpfLogin = Console.ReadLine();
+        int cpfFind = cpfs.FindIndex(cpf => cpf == cpfLogin);
+        Console.WriteLine("Digite sua senha");
+        string senhaLogin = Console.ReadLine();
+        int senhaFind = senhas.FindIndex(senhas => senhas == senhaLogin);
+        
+        if(cpfFind == -1) {
+            Console.WriteLine("Não foi possível encontrar esta Conta");
+            Console.WriteLine("MOTIVO: Conta não encontrada.");
+        }
+        if(senhaFind == -1) {
+            Console.WriteLine("Não foi possível encontrar esta Conta");
+            Console.WriteLine("MOTIVO: Senha não encontrada.");
+        }
+    }
+
+    static void Operations()
+    {
+        Console.WriteLine("Por favor, digite a operação que deseja realizar:");
+        Console.WriteLine("1 - Saque");
+        Console.WriteLine("2 - Depósito");
+        Console.WriteLine("3 - Tranferência");
+        Console.WriteLine("0 - Para sair do programa");
     }
     
+    static void CreateUser(List<string> cpfs, List<string> titulares, List<string> senhas , List<double> saldos)
+    {
+        
+        Console.Clear();
+        
+        Console.Write("Digite o cpf: ");
+        cpfs.Add(Console.ReadLine());
+        Console.Write("Digite seu nome: ");
+        titulares.Add(Console.ReadLine());
+        Console.Write("Digite a senha: ");
+        senhas.Add(Console.ReadLine());
+        saldos.Add(0);
+    }
+
     public static void Main(string[] args)
     {
         int optionInit;
+        List<string> cpfs = new List<string>();
+        List<string> titulares = new List<string>();
+        List<string> senhas = new List<string>();
+        List<double> saldos = new List<double>();
         do
         {
            Init(); 
@@ -27,10 +69,12 @@ public class Program
                    Console.WriteLine("Estou encerrando o programa...");
                    break;
                case 1:
-                   Console.WriteLine("Entrar na conta");
+                   Login(titulares, senhas);
                    break;
                case 2:
-                   Console.WriteLine("Criar nova conta");
+                   CreateUser(cpfs, titulares, senhas, saldos);
+                   //Operations();
+                   break;
            }
    
         } while (optionInit != 0);
