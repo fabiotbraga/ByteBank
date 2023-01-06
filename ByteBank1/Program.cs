@@ -6,6 +6,7 @@ public class Program
 {
     static void Init()
     {
+        Console.ForegroundColor = ConsoleColor.DarkGreen;
         Console.WriteLine();
         Console.WriteLine("--------------- BYTEBANK ---------------");
         Console.WriteLine("Bem vindo ao ByteBank! Por favor, digite a opção desejada:");
