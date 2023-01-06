@@ -127,6 +127,7 @@ public class Program
         contaLogada.FazerDeposito(valor);
         Console.WriteLine($"Depósito de R${valor:F2} efetuado com sucesso! ");
         Console.WriteLine();
+        Console.WriteLine($"Você agora possui um saldo de R${contaLogada.Saldo:F2} ");
     }
 
     static void Saque(User contaLogada)
@@ -139,12 +140,14 @@ public class Program
         double valor = double.Parse(Console.ReadLine());
         contaLogada.FazerSaque(valor);
         Console.WriteLine($"Saque de R${valor:F2} efetuado com sucesso!");
+        Console.WriteLine($"Você agora possui um saldo de R${contaLogada.Saldo:F2} ");
         Console.WriteLine();
     }
 
     static void Transferencia(List<User> contas, User contaLogada)
     {
-        Console.WriteLine("---------- TRANSFERÊNCIA ----------");
+        Console.Clear();
+        Console.WriteLine("--------------- TRANSFERÊNCIA ---------------");
         Console.WriteLine();
         User pagador = contaLogada;
         Console.WriteLine("--------------- LISTA DE CLIENTES ---------------");
