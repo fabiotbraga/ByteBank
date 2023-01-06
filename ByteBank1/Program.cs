@@ -24,7 +24,7 @@ public class Program
         Console.Write("Digite o CPF: ");
         string cpf = Console.ReadLine();
         Console.Write("Crie uma senha: ");
-        string senha = Console.ReadLine();
+        string senha = maskPassword();
         Console.Write("Digite o depósito inicial: R$");
         double saldo = double.Parse(Console.ReadLine());
         Random numAleatorioParaConta = new Random();
@@ -53,7 +53,7 @@ public class Program
             Console.Write("Digite o número da sua conta: ");
             int numContaLogin = int.Parse(Console.ReadLine());
             Console.Write("Digite a sua senha: ");
-            string senhaLogin = Console.ReadLine();
+            string senhaLogin = maskPassword();
             Console.WriteLine();
             cc = contas.Find(x => x.NumConta == numContaLogin && x.Senha == senhaLogin);
             if (cc == null)
@@ -210,6 +210,31 @@ public class Program
         Console.WriteLine();
         Console.WriteLine("Digite qualquer tecla para voltar ao menu anterior... ");
         Console.ReadKey(); 
+    }
+    
+    private static string maskPassword() {
+        string pass = string.Empty;
+        ConsoleKey key;
+
+        do
+        {
+            var keyInfo = Console.ReadKey(intercept: true);
+            key = keyInfo.Key;
+
+            if (key == ConsoleKey.Backspace && pass.Length > 0)
+            {
+                Console.Write("\b \b");
+                pass = pass[0..^1];
+            }
+            else if (!char.IsControl(keyInfo.KeyChar))
+            {
+                Console.Write("*");
+                pass += keyInfo.KeyChar;
+            }
+        } while (key != ConsoleKey.Enter);
+            
+        Console.WriteLine();
+        return pass;
     }
 
     public static void Main(string[] args)
